@@ -10,7 +10,7 @@
 
         @yield('before-css')
         <!-- App favicon -->
-        <link href="{{ asset('admin_assets') }}/images/favicon.png" sizes="128x128" rel="shortcut icon" />
+        <link href="{{ asset('admin_assets') }}/images/favicon.png" rel="shortcut icon" />
         
         <link href="https://fonts.googleapis.com/css?family=Nunito:400,600,700,900&display=swap" rel="stylesheet">
 
@@ -51,7 +51,7 @@
                     <li class="dropdown notification-list">
                         <a class="nav-link dropdown-toggle nav-user mr-0 waves-effect waves-light" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
                             <img src="{{ check_file(auth()->user()->image, 'user') }}" alt="{{ auth()->user()->full_name }}" class="rounded-circle fit-image">
-                            <span class="pro-user-name ml-1">
+                            <span class="pro-user-name ml-1" style="color: rgba(255, 255, 255, .85)">
                                 {{ auth()->user()->fullname }} <i class="mdi mdi-chevron-down"></i>
                             </span>
                         </a>
@@ -165,7 +165,7 @@
                     <div class="container-fluid">
                         <div class="row">
                             <div class="col-12">
-                                {{ date('Y') }} &copy; All rights reserved by <strong>{{ str_replace('-', ' ', env('APP_NAME')) }}</strong>. Design &amp; Developed By <a href="http://logo-genius.com" target="_blank">Logo Genius</a>.
+                                {{ date('Y') }} &copy; All rights reserved by <strong>{{ str_replace('-', ' ', env('APP_NAME')) }}</strong>. Design &amp; Developed By <a href="https://gexton.com" target="_blank">GEXTON INC</a>.
                             </div>
                         </div>
                     </div>

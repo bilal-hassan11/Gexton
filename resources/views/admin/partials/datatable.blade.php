@@ -56,13 +56,3 @@
     });
     dtable.buttons().container().prependTo(".dataTables_wrapper .col-md-6:eq(0)");
 </script>
-
-{{-- @if(isset($load_swtichery))
-<link href="{{ asset('admin_assets') }}/libs/switchery/switchery.min.css" rel="stylesheet" type="text/css" />
-<script src="{{ asset('admin_assets') }}/libs/switchery/switchery.min.js"></script>
-<script>
-    $('[data-toggle="switchery"]').each(function(a, e) {
-        new Switchery($(this)[0], $(this).data())
-    });
-</script>
-@endif --}}
