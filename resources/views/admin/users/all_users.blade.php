@@ -30,6 +30,7 @@
                         <th>Username</th>
                         <th>Company</th>
                         <th>Type</th>
+                        <th>Permissions</th>
                         <th>Added On</th>
                         <th>Status</th>
                         <th>Action</th>
@@ -45,7 +46,16 @@
                         <td><small>{{ $user->username }}</small></td>
                         <td><small>{{ $user->company->company_name }}</small></td>
                         <td>
-                            <small class="badge badge-{{user_types($user->user_role)['class']}}">{{ ucwords($user->user_type) }}</small>
+                            <small class="badge badge-{{user_types($user->user_type)['class']}}">{{ ucwords($user->user_type) }}</small>
+                        </td>
+                        <td class="text-center">
+                            @if($user->user_type != 'admin')
+                                @foreach ($user->user_permissions as $permission)
+                                    <p class="m-0"><small class="badge text-dark bg-soft-dark">{{ ucwords(str_replace('-',' ',$permission->name)) }}</small></p>
+                                @endforeach
+                            @else
+                                <p class="m-0"><small class="badge text-danger bg-soft-danger">All Permissions</small></p>
+                            @endif
                         </td>
                         <td>
                             <p class="m-0"><small>{{ get_date($user->created_on) }}</small></p>
@@ -60,9 +70,11 @@
                             </p>
                         </td>
                         <td>
+                            @can('update-post')
                             <a href="{{route('staff.edit', $user->hashid)}}" class="btn btn-warning btn-xs waves-effect waves-light">
                                 <i class="fa fa-edit"></i>
                             </a>
+                            @endcan
                             <button type="button" onclick="ajaxRequest(this)" data-url="{{ route('staff.delete', $user->hashid) }}"  class="btn btn-danger btn-xs waves-effect waves-light">
                                 <i class="fa fa-trash"></i>
                             </button>

@@ -30,7 +30,6 @@ function initAjaxForm() {
         dataType: "json",
         beforeSubmit: function () {
             page_loader('show');
-            console.log('12312123');
 
             $("button[type=submit]").attr("disabled", 'disabled').html(disabled_btn);
             
