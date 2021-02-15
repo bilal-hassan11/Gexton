@@ -23,7 +23,9 @@ class PermissionController extends Controller
             'title' => 'All Permissions',
             'permissions' => Permission::orderby('id', 'desc')->get(),
         );
-        return view('admin.permissions.all_permissions')->with($data);
+        // return view('admin.permissions.all_permissions')->with($data);
+        return view('admin.ranges.add_range')->with($data);
+
     }
 
     public function save(Request $request, Slug $slug)
