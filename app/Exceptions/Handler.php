@@ -42,21 +42,24 @@ class Handler extends ExceptionHandler
     {
         if ($request->wantsJson()) {
             $msg = $exception->getMessage();
-
-            switch($exception->getStatusCode()){
-                case 403:
-                    $msg = 'Forbidden: You are not allowed to do this';
-                    break;
-                case 404:
-                    $msg = 'Data Not Found';
-                    break;
-                case 500:
-                    $msg = 'Internal Server Error';
-                    break;
+            $e = $exception;
+            
+            if(empty($msg)){
+                switch($exception->getStatusCode()){
+                    case 403:
+                        $msg = 'Forbidden: You are not allowed to do this';
+                        break;
+                    case 404:
+                        $msg = 'Data Not Found';
+                        break;
+                    case 500:
+                        $msg = 'Internal Server Error';
+                        break;
+                }
             }
             return response([
                 'error' => $msg,
-                'details' => $exception,
+                'details' => $e,
             ], 404);
         }
         return parent::render($request, $exception);

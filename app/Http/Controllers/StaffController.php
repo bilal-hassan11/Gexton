@@ -13,8 +13,7 @@ class StaffController extends Controller
 
     public function __construct()
     {
-        // $this->middleware('is_admin',  ['except' => ['update_profile', 'save_profile', 'change_password']]);
-        
+        $this->middleware('is_admin',  ['except' => ['update_profile', 'save_profile', 'change_password']]);
     }
 
     public function index(Request $request)

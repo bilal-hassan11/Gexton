@@ -28,8 +28,8 @@
         scrollX: false,
         responsive: true,
         lengthMenu: [
-            [25, 50, 100, 250, 500, -1],
-            [25, 50, 100, 250, 500, "All"]
+            [50, 100, 250, 500, -1],
+            [50, 100, 250, 500, "All"]
         ],
         buttons: [
                {extend: 'copy',

@@ -126,6 +126,13 @@
                             </li>
 
                             <li>
+                                <a href="{{route('products')}}">
+                                    <i class="fe-users"></i>
+                                    <span> Products </span>
+                                </a>
+                            </li>
+
+                            <li>
                                 <a href="{{route('staff')}}">
                                     <i class="fe-users"></i>
                                     <span> Staffs </span>
