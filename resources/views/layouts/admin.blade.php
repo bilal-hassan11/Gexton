@@ -124,7 +124,14 @@
                                     <span> Dashboard </span>
                                 </a>
                             </li>
-
+                         
+                            <li>
+                                <a href="{{ route('products.range') }}">
+                                    <i class="fe-list"></i>
+                                    <span> Product Ranges </span>
+                                </a>
+                            </li>
+                         
                             <li>
                                 <a href="{{route('products')}}">
                                     <i class="fe-users"></i>
@@ -145,6 +152,8 @@
                                     <span> Update Profile </span>
                                 </a>
                             </li>
+
+                          
                             @roles('admin')
                                 <li>
                                     <a href="{{ route('permissions') }}">
@@ -153,6 +162,9 @@
                                     </a>
                                 </li>
                             @endroles
+
+
+                           
                         </ul>
 
                     </div>

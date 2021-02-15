@@ -90,4 +90,52 @@ class ProductController extends Controller
 
         return response()->json($msg);
     }
+
+
+    public function all_product_range(Request $request)
+    {  
+        // return view('admin.ranges.add_range');
+        $ProductRange = \App\Models\ProductRange::all();
+        // dd($ProductRange);
+        $data = array(
+            'ProductRange' => $ProductRange,
+        );
+        return view('admin.products.all_product_ranges')->with($data);
+    }
+
+
+    public function product_range_save(Request $request, Slug $slug)
+    {
+        $rules = [
+            'name' => ['required', 'string', 'max:80'],
+        ];
+
+        $validator = Validator::make($request->all(), $rules);
+
+        if ($validator->fails()) {
+            return ['errors' => $validator->errors()];
+        }
+
+
+        if ($request->product_id) {
+            $ProductRange = \App\Models\ProductRange::hashidFind($request->product_id);
+            $ProductRange->slug = $slug->createSlug('products_ranges', $request->name, $ProductRange->id);
+            $msg = [
+                'success' => 'Product Range has been updated',
+                'reload' => true,
+            ];
+        } else {
+            $ProductRange = new \App\Models\ProductRange();
+            $ProductRange->slug = $slug->createSlug('products_ranges', $request->name);
+            $msg = [
+                'success' => 'Product Range has been added',
+                'redirect' => route('products.range'),
+            ];
+        }
+
+        $ProductRange->name = $request->name;
+        $ProductRange->save();
+
+        return response()->json($msg);
+    }
 }

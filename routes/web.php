@@ -55,4 +55,8 @@ Route::middleware(['auth', 'is_active'])->group(function () {
     Route::post('/products/save', 'ProductController@save')->name('products.save');
     Route::post('/products/view-shades', 'ProductController@view_shades')->name('products.view_shades');
     Route::get('/products/delete/{product_id}', 'ProductController@delete')->name('products.delete');
+    Route::get('/product_range', 'ProductController@all_product_range')->name('products.range');
+    Route::post('/product_range_save', 'ProductController@product_range_save')->name('product.range.save');
+
+    
 });
