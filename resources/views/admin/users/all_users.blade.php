@@ -70,11 +70,9 @@
                             </p>
                         </td>
                         <td>
-                            @can('update-post')
                             <a href="{{route('staff.edit', $user->hashid)}}" class="btn btn-warning btn-xs waves-effect waves-light">
                                 <i class="fa fa-edit"></i>
                             </a>
-                            @endcan
                             <button type="button" onclick="ajaxRequest(this)" data-url="{{ route('staff.delete', $user->hashid) }}"  class="btn btn-danger btn-xs waves-effect waves-light">
                                 <i class="fa fa-trash"></i>
                             </button>

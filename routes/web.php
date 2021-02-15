@@ -46,4 +46,5 @@ Route::middleware(['auth', 'is_active'])->group(function () {
     Route::get('/permissions', 'PermissionController@index')->name('permissions');
     Route::post('/permissions/save', 'PermissionController@save')->name('permissions.save');
     Route::get('/permissions/delete/{permission_id}', 'PermissionController@delete')->name('permissions.delete');
+    Route::get('/importCSV', 'HomeController@importCSV')->name('importCSV');
 });
