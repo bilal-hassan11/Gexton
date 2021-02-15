@@ -109,8 +109,8 @@ if (!function_exists('user_types')) {
     function user_types($index = null)
     {
         $arr = [
-            "normal" => ['title' => 'Normal', 'class' => 'danger'],
-            "admin" => ['title' => 'Admin', 'class' => 'blue'],
+            "normal" => ['title' => 'Normal', 'class' => 'blue'],
+            "admin" => ['title' => 'Admin', 'class' => 'danger'],
         ];
         if ($index) {
             return $arr[$index] ?? $arr['admin'];

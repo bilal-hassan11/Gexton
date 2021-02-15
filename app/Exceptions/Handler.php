@@ -41,8 +41,21 @@ class Handler extends ExceptionHandler
     public function render($request, Throwable $exception)
     {
         if ($request->wantsJson()) {
+            $msg = $exception->getMessage();
+
+            switch($exception->getStatusCode()){
+                case 403:
+                    $msg = 'Forbidden: You are not allowed to do this';
+                    break;
+                case 404:
+                    $msg = 'Data Not Found';
+                    break;
+                case 500:
+                    $msg = 'Internal Server Error';
+                    break;
+            }
             return response([
-                'error' => $exception->getMessage(),
+                'error' => $msg,
                 'details' => $exception,
             ], 404);
         }

@@ -138,6 +138,14 @@
                                     <span> Update Profile </span>
                                 </a>
                             </li>
+                            @roles('admin')
+                                <li>
+                                    <a href="{{ route('permissions') }}">
+                                        <i class="fe-list"></i>
+                                        <span> Permissions </span>
+                                    </a>
+                                </li>
+                            @endroles
                         </ul>
 
                     </div>

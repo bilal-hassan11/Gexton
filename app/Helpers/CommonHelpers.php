@@ -33,7 +33,7 @@ class CommonHelpers
         }
     }
 
-    public static function uploadSingleFile($file, $path = 'upload/images/', $types = "png,gif,csv,jpeg,jpg", $filesize = '20000', $rule_msgs = [])
+    public static function uploadSingleFile($file, $path = 'uploads/images/', $types = "png,gif,csv,jpeg,jpg", $filesize = '20000', $rule_msgs = [])
     {
         $path = $path . date('Y') . '/';
         if (!file_exists($path)) {

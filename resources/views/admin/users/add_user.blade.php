@@ -72,10 +72,19 @@
 
                 <div class="form-group mb-3">
                     <label for="user_type">User Type<span class="text-danger">*</span></label>
-                    <select class="form-control" data-parsley-required name="user_type" id="user_type">
+                    <select class="form-control" onchange="changed_user_type(this.value)" data-parsley-required name="user_type" id="user_type">
                         <option value="">Select User Type</option>
                         <option {{isset($user) && $user->user_type == 'admin' ? 'selected' : ''}} value="admin">Admin</option>
                         <option {{isset($user) && $user->user_type == 'normal' ? 'selected' : ''}} value="normal">Normal</option>
+                    </select>
+                </div>
+
+                <div class="form-group mb-3" id="permissions_wrap" style="display: {{ isset($user) && $user->user_type == 'normal' ? 'block' : 'none'}}">
+                    <label for="permissions">User Permissions</label>
+                    <select class="form-control select2" multiple name="permissions[]" id="permissions">
+                        @foreach ($permissions as $permission)
+                            <option {{isset($user) && in_array($permission->slug, $user_permissions) ? 'selected' : ''}} value="{{$permission->name}}">{{$permission->name}}</option>
+                        @endforeach
                     </select>
                 </div>
 
@@ -141,5 +150,29 @@
             $('.profile_img_label').html('Choose file');
         }
    });
+
+   $(document).ready(function () {
+        if ($('.select2').length > 0) {
+            $('.select2').select2({
+                placeholder: 'Select User Permissions',
+                tags: true,
+            })
+        }
+    });
+
+    function changed_user_type(type){
+        if(type != 'admin'){
+            $("#permissions_wrap").show();
+            $("#permissions").attr('required', 'required');
+        }else{
+            $("#permissions").removeAttr('required');
+            $("#permissions_wrap").hide();
+        }
+
+        $('.select2').select2({
+            placeholder: 'Select User Permissions',
+            tags: true,
+        })
+    }
 </script>
 @endsection

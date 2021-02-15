@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Admin as Staff;
 use App\Http\Controllers\Controller;
+use App\Services\Slug;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -12,10 +13,11 @@ class StaffController extends Controller
 
     public function __construct()
     {
-        $this->middleware('is_admin',  ['except' => ['update_profile', 'save_profile', 'change_password']]);
+        // $this->middleware('is_admin',  ['except' => ['update_profile', 'save_profile', 'change_password']]);
+        
     }
 
-    public function index()
+    public function index(Request $request)
     {
         $data = array(
             'title' => 'All Staff Users',
@@ -28,6 +30,7 @@ class StaffController extends Controller
     {
         $data = array(
             'title' => 'Add Staff User',
+            'permissions' => \App\Models\Permission::all(),
             'companies' => \App\Models\Company::all(),
         );
         return view('admin.users.add_user')->with($data);
@@ -35,15 +38,18 @@ class StaffController extends Controller
 
     public function edit(Request $request)
     {
+        $user = Staff::hashidOrFail($request->user_id);
         $data = array(
             'title' => 'Edit Staff User',
-            'user' => Staff::hashidFind($request->user_id),
+            'user' => $user,
+            'permissions' => \App\Models\Permission::all(),
+            'user_permissions' => array_column($user->user_permissions, 'name'),
             'companies' => \App\Models\Company::all(),
         );
         return view('admin.users.add_user')->with($data);
     }
 
-    public function save(Request $request)
+    public function save(Request $request, Slug $slug)
     {
         $rules = [
             'first_name' => ['required', 'string', 'max:80'],
@@ -85,7 +91,7 @@ class StaffController extends Controller
         }
 
         if ($request->hasFile('profile_img')) {
-            $profile_img = \CommonHelpers::uploadSingleFile($request->file('profile_img'), 'upload/profile_images/');
+            $profile_img = \CommonHelpers::uploadSingleFile($request->file('profile_img'), 'uploads/profile_images/');
             if (is_array($profile_img)) {
                 return response()->json($profile_img);
             }
@@ -95,11 +101,24 @@ class StaffController extends Controller
             $staff->image = $profile_img;
         }
 
+        $permissions = [];
+        if(isset($request->permissions) && safeCount($request->permissions) > 0){
+            foreach($request->permissions as $permission){
+                $_permission = \App\Models\Permission::firstOrNew(['name' => $permission]);
+                if($_permission->id == null){
+                    $_permission->slug = $slug->createSlug('permissions', $permission);
+                    $_permission->save();
+                }
+    
+                $permissions[] = ['name' => $_permission->slug];
+            }
+        }
+
         $staff->email = $request->email;
         $staff->first_name = $request->first_name;
         $staff->last_name = $request->last_name;
         $staff->user_type = $request->user_type;
-        $staff->user_permissions = [];
+        $staff->user_permissions = $permissions;
         $staff->company_id = $request->company_id;
         $staff->save();
 

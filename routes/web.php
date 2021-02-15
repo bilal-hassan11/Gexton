@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,19 +17,8 @@ use Illuminate\Support\Facades\Route;
 //auth routes for normal user
 Auth::routes(['verify' => false, 'register' => false]);
 
-//admin auth routes
-// Route::prefix('web_admin')->namespace('Auth')->group(function () {
-//     Route::get('/login', 'AdminLoginController@showLoginForm')->name('login');
-//     Route::post('/logout', 'AdminLoginController@logout')->name('logout');
-//     Route::post('/login', 'AdminLoginController@login')->name('login.submit');
-//     Route::post('/password/reset', 'AdminResetPasswordController@reset')->name('password.update');
-//     Route::post('/password/forget/password', 'AdminForgotPasswordController@sendResetLinkEmail')->name('password.email');
-//     Route::get('/password/reset', 'AdminForgotPasswordController@showLinkRequestForm')->name('password.request');
-//     Route::get('/password/reset/{token}', 'AdminResetPasswordController@showResetForm')->name('password.reset');
-// });
-
 //protected admin routes
-Route::middleware(['auth:admin', 'is_active'])->group(function () {
+Route::middleware(['auth', 'is_active'])->group(function () {
     Route::get('/', 'HomeController@index')->name('home');
 
     //profile pages
@@ -51,4 +41,9 @@ Route::middleware(['auth:admin', 'is_active'])->group(function () {
     Route::get('/notification/mark_all_read', 'NotificaitonController@mark_all_read')->name('notifications.all_read');
     Route::get('/notification/mark_as_read/{id}', 'NotificaitonController@mark_single_notification_read')->name('notifications.mark_as_read');
     Route::get('/notification/delete_all', 'NotificaitonController@delete_notifications')->name('notifications.delete_all');
+
+    //Permissions routes
+    Route::get('/permissions', 'PermissionController@index')->name('permissions');
+    Route::post('/permissions/save', 'PermissionController@save')->name('permissions.save');
+    Route::get('/permissions/delete/{permission_id}', 'PermissionController@delete')->name('permissions.delete');
 });
