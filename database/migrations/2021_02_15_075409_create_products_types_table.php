@@ -18,9 +18,6 @@ class CreateProductsTypesTable extends Migration
             $table->bigInteger('range_id')->nullable();
             $table->string('name');
             $table->string('slug');
-            $table->double('purchase_price')->default(0);
-            $table->double('margin')->default(0);
-            $table->double('sale_price')->default(0);
             $table->timestamps();
         });
     }

@@ -47,4 +47,12 @@ Route::middleware(['auth', 'is_active'])->group(function () {
     Route::post('/permissions/save', 'PermissionController@save')->name('permissions.save');
     Route::get('/permissions/delete/{permission_id}', 'PermissionController@delete')->name('permissions.delete');
     Route::get('/importCSV', 'HomeController@importCSV')->name('importCSV');
+
+    //Products routes
+    Route::get('/products', 'ProductController@index')->name('products');
+    Route::get('/products/add', 'ProductController@add')->name('products.add');
+    Route::get('/products/edit/{product_id}', 'ProductController@edit')->name('products.edit');
+    Route::post('/products/save', 'ProductController@save')->name('products.save');
+    Route::post('/products/view-shades', 'ProductController@view_shades')->name('products.view_shades');
+    Route::get('/products/delete/{product_id}', 'ProductController@delete')->name('products.delete');
 });
