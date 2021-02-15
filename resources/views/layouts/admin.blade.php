@@ -52,13 +52,13 @@
                         <a class="nav-link dropdown-toggle nav-user mr-0 waves-effect waves-light" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
                             <img src="{{ check_file(auth()->user()->image, 'user') }}" alt="{{ auth()->user()->full_name }}" class="rounded-circle fit-image">
                             <span class="pro-user-name ml-1" style="color: rgba(255, 255, 255, .85)">
-                                {{ auth()->user()->fullname }} <i class="mdi mdi-chevron-down"></i>
+                                {{ auth()->user()->username }} <i class="mdi mdi-chevron-down"></i>
                             </span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right profile-dropdown ">
                             <!-- item-->
                             <div class="dropdown-header noti-title">
-                                <h6 class="text-overflow m-0">Welcome {{ auth()->user()->fullname }}!</h6>
+                                <h6 class="text-overflow m-0">Welcome {{ auth()->user()->username }}!</h6>
                             </div>
                             
                             <!-- item-->
