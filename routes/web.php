@@ -57,6 +57,8 @@ Route::middleware(['auth', 'is_active'])->group(function () {
     Route::get('/products/delete/{product_id}', 'ProductController@delete')->name('products.delete');
     Route::get('/product_range', 'ProductController@all_product_range')->name('products.range');
     Route::post('/product_range_save', 'ProductController@product_range_save')->name('product.range.save');
+    Route::post('/products/get-product-type', 'ProductController@get_product_type')->name('products.get_product_type');
+
 
     
 });

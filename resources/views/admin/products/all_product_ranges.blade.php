@@ -10,7 +10,6 @@
                 </ol>
             </div>
             <h4 class="page-title">All Products Range</h4>
-            
         </div>
     </div>
 </div>

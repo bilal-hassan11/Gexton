@@ -56,37 +56,61 @@ class ProductController extends Controller
     }
 
     public function save(Request $request, Slug $slug)
-    {
-        $rules = [
-            'item_code' => ['required', 'string', 'max:80'],
-            'item_name' => ['required', 'string', 'max:80'],
-            'item_no' => ['required', 'string', 'max:80'],
-        ];
+    {     
+        // print_r($request->all());
+        // exit;
+        $data = $request->all();
+        unset($data['_token']);
+        $arr=[];
+        // $rules = [
+        //     'item_code' => ['required', 'string', 'max:80'],
+        //     'item_name' => ['required', 'string', 'max:80'],
+        //     'item_no' => ['required', 'string', 'max:80'],
+        // ];
 
-        $validator = Validator::make($request->all(), $rules);
+        // $validator = Validator::make($request->all(), $rules);
 
-        if ($validator->fails()) {
-            return ['errors' => $validator->errors()];
-        }
+        // if ($validator->fails()) {
+        //     return ['errors' => $validator->errors()];
+        // }
 
 
-        if ($request->user_id) {
-            $product = Product::hashidFind($request->product_id);
-            $msg = [
-                'success' => 'Product has been updated',
-                'reload' => true,
-            ];
-        } else {
+        // if ($request->product_id) {
+        //     $product = Product::hashidFind($request->product_id);
+        //     $msg = [
+        //         'success' => 'Product has been updated',
+        //         'reload' => true,
+        //     ];
+        // } else {
             $product = new Product();
 
             $msg = [
                 'success' => 'Product has been added',
                 'redirect' => route('products'),
             ];
-        }
+        // }
 
-        $product->item_name = '';
-        $product->save();
+         foreach($data['item'] as $key=>$n){
+                // foreach($val['item'] as $j=>$n){
+                  if(!empty($n['st_ltr'])){
+                     $arr[]=['range_id'=>$data['range_id'],'type_id'=>$data['type_id'],'item_code'=>'123','item_name'=>$n['color'],'item_no'=>$n['Shade'],'packaging'=>$n['st_ltr'],'packaging_type'=>'small tin','purchase_price'=>$n['st_pp'],'sale_price'=>$n['st_sp']];
+                  }
+                  if(!empty($n['qtr_ltr'])){
+                    $arr[]=['range_id'=>$data['range_id'],'type_id'=>$data['type_id'],'item_code'=>'123','item_name'=>$n['color'],'item_no'=>$n['Shade'],'packaging'=>$n['qtr_ltr'],'packaging_type'=>'quarter','purchase_price'=>$n['st_pp'],'sale_price'=>$n['st_sp']];
+                  }
+
+                  if(!empty($n['gln_ltr'])){
+                    $arr[]=['range_id'=>$data['range_id'],'type_id'=>$data['type_id'],'item_code'=>'123','item_name'=>$n['color'],'item_no'=>$n['Shade'],'packaging'=>$n['gln_ltr'],'packaging_type'=>'gallon','purchase_price'=>$n['st_pp'],'sale_price'=>$n['st_sp']];
+                  }
+                  if(!empty($n['drm_ltr'])){
+                    $arr[]=['range_id'=>$data['range_id'],'type_id'=>$data['type_id'],'item_code'=>'123','item_name'=>$n['color'],'item_no'=>$n['Shade'],'packaging'=>$n['drm_ltr'],'packaging_type'=>'drum','purchase_price'=>$n['st_pp'],'sale_price'=>$n['st_sp']];
+                  }
+                // print_r($val);
+                // }
+         }
+         
+    
+        $product->insert($arr);
 
         return response()->json($msg);
     }
@@ -137,5 +161,18 @@ class ProductController extends Controller
         $ProductRange->save();
 
         return response()->json($msg);
+    }
+
+
+    public function get_product_type(Request $request)
+    {
+        $productType = ProductType::whereRangeId($request->id)->get();
+        $html = '';
+        foreach ($productType as $key => $value) {
+            $html .="<option value=".$value->id.">".$value->name."</option>";
+        }
+        return response()->json([
+            'html' => $html
+        ]);
     }
 }
