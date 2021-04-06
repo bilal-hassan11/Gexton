@@ -28,8 +28,7 @@
                             <div class="text-center w-75 m-auto">
                                 <a href="{{ route('login') }}">
                                     <span>
-                                        <img src="{{ asset('admin_assets') }}/images/vertical_logo.png" alt="{{ env('APP_NAME') }}" width="190">
-                                        {{-- <h1></h1> --}}
+                                        <h1> GEMNET </h1>
                                     </span>
                                 </a>
                                 <p class="text-muted mb-4 mt-3">@yield('page-heading')</p>

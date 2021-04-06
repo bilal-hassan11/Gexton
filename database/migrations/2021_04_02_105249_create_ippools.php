@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateProductsTypesTable extends Migration
+class CreateIppools extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,12 @@ class CreateProductsTypesTable extends Migration
      */
     public function up()
     {
-        Schema::create('products_type', function (Blueprint $table) {
+        Schema::create('ippools', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('range_id')->nullable();
-            $table->string('name');
-            $table->string('slug');
+            $table->string('dbs_id');
+            $table->string('ip');
+            $table->string('type');
+            $table->string('nat');
             $table->timestamps();
         });
     }
@@ -29,6 +30,6 @@ class CreateProductsTypesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('products_type');
+        Schema::dropIfExists('ippools');
     }
 }

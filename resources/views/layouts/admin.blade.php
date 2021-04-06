@@ -17,6 +17,8 @@
         <!-- Plugins css -->
         <link href="{{ asset('admin_assets') }}/css/bundled.min.css" rel="stylesheet" type="text/css" />
         <link href="{{ asset('admin_assets') }}/css/dianujStyles.css" rel="stylesheet" type="text/css" />
+        <!--Pagination CSS-->
+        <link rel="stylesheet" href="{{ asset('admin_assets') }}/css/pagination.css" rel="stylesheet" type="text/css">
         <style>
             .select2-container .select2-selection--single .select2-selection__rendered {
                 line-height: 1.9;
@@ -44,9 +46,6 @@
             <!-- Topbar Start -->
             <div class="navbar-custom">
                 <ul class="list-unstyled topnav-menu float-right mb-0">
-                    {{-- <li class="dropdown notification-list" id="notification_dropdown">
-                        @include('partials.notifications')
-                    </li> --}}
 
                     <li class="dropdown notification-list">
                         <a class="nav-link dropdown-toggle nav-user mr-0 waves-effect waves-light" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
@@ -87,10 +86,10 @@
                 <div class="logo-box">
                     <a href="{{ route('home') }}" class="logo text-center">
                         <span class="logo-lg">
-                            <img src="{{ asset('admin_assets') }}/images/logo-light.png" alt="{{ env('APP_NAME') }}" width="100">
+                            <h1 class="text-white"> GEMNET </h1>
                         </span>
                         <span class="logo-sm">
-                            <img src="{{ asset('admin_assets') }}/images/logo-sm-white.png" alt="{{ env('APP_NAME') }}" width="50">
+                            <h3 class="text-white"> GEMNET </h3>
                         </span>
                     </a>
                 </div>
@@ -117,54 +116,40 @@
                         @endphp
                         <ul class="metismenu" id="side-menu">
                             <li class="menu-title">Navigation</li>
-
                             <li>
                                 <a href="{{ route('home') }}">
                                     <i class="fe-airplay"></i>
                                     <span> Dashboard </span>
                                 </a>
                             </li>
-                         
                             <li>
-                                <a href="{{ route('products.range') }}">
+                                <a href="{{ route('users.show') }}">
                                     <i class="fe-list"></i>
-                                    <span> Product Ranges </span>
+                                    <span> View Users </span>
                                 </a>
                             </li>
-                         
+
                             <li>
-                                <a href="{{route('products')}}">
+                                <a href="{{ route('acl.users.show') }}">
+                                    <i class="fe-list"></i>
+                                    <span> Add Acl </span>
+                                </a>
+                            </li>
+                            
+                            <li>
+                                <a href="{{route('ippool.show')}}">
                                     <i class="fe-users"></i>
-                                    <span> Products </span>
+                                    <span> Add IPPool </span>
                                 </a>
-                            </li>
+                            </li> 
 
-                            <li>
-                                <a href="{{route('staff')}}">
+                             <li>
+                                <a href="{{route('dbs.show')}}">
                                     <i class="fe-users"></i>
-                                    <span> Staffs </span>
+                                    <span> Add Database </span>
                                 </a>
-                            </li>
-
-                            <li>
-                                <a href="{{ route('update_profile') }}">
-                                    <i class="fe-settings"></i>
-                                    <span> Update Profile </span>
-                                </a>
-                            </li>
-
-                          
-                            @roles('admin')
-                                <li>
-                                    <a href="{{ route('permissions') }}">
-                                        <i class="fe-list"></i>
-                                        <span> Permissions </span>
-                                    </a>
-                                </li>
-                            @endroles
-
-
-                           
+                            </li> 
+                            
                         </ul>
 
                     </div>
@@ -229,12 +214,7 @@
         <script src="{{ asset('admin_assets') }}/js/app.min.js"></script>
         <script src="{{ asset('admin_assets') }}/js/custom.js"></script>
 
-        @if(auth('admin')->check())
-            <script>
-                //getNotfications('{{route("notification.all")}}', '#notification_dropdown', 60);
-            </script>
-        @endif
-
+       
         @yield('page-scripts')
     </body>
 

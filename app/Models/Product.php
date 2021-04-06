@@ -18,6 +18,6 @@ class Product extends MainModel
     }
 
     public function related(){
-        return $this->hasMany('App\Models\Product', 'item_no');
+        return $this->hasMany('App\Models\Product', 'item_no', 'item_no');
     }
 }

@@ -15,17 +15,18 @@ class CreateAdminTable extends Migration
     {
         Schema::create('admins', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->bigInteger('company_id')->default(1);
+            // $table->bigInteger('company_id')->default(1);
             $table->string('first_name');
             $table->string('last_name')->nullable();
-            $table->string('username')->unique();
+            $table->string('username');
             $table->string('email')->nullable();
             $table->text('image')->nullable();
             $table->enum('user_type', ['admin','normal'])->default('normal');
-            $table->text('user_permissions')->nullable();
+            // $table->text('user_permissions')->nullable();
             $table->string('password');
             $table->boolean('is_active')->default('1');
-            $table->bigInteger('added_by_id')->nullable();
+            $table->boolean('enable_acl')->default('1');
+            // $table->bigInteger('added_by_id')->nullable();
             $table->rememberToken();
             $table->dateTime('deleted_at')->nullable();
             $table->timestamps();

@@ -27,38 +27,38 @@ Route::middleware(['auth', 'is_active'])->group(function () {
     Route::post('/change-password', 'StaffController@change_password')->name('change_password');
 
     //Staffs routes
-    Route::get('/staff', 'StaffController@index')->name('staff');
-    Route::get('/staff/add', 'StaffController@add')->name('staff.add');
-    Route::get('/staff/edit/{user_id}', 'StaffController@edit')->name('staff.edit');
-    Route::post('/staff/save', 'StaffController@save')->name('staff.save');
-    Route::post('/staff/update_password', 'StaffController@update_password')->name('staff.update_password');
-    Route::get('/staff/update-status/{user_id}', 'StaffController@updateStatus')->name('staff.update_status');
-    Route::get('/staff/delete/{user_id}', 'StaffController@delete')->name('staff.delete');
+    // Route::get('/staff', 'StaffController@index')->name('staff');
+    // Route::get('/staff/add', 'StaffController@add')->name('staff.add');
+    // Route::get('/staff/edit/{user_id}', 'StaffController@edit')->name('staff.edit');
+    // Route::post('/staff/save', 'StaffController@save')->name('staff.save');
+    // Route::post('/staff/update_password', 'StaffController@update_password')->name('staff.update_password');
+    // Route::get('/staff/update-status/{user_id}', 'StaffController@updateStatus')->name('staff.update_status');
+    // Route::get('/staff/delete/{user_id}', 'StaffController@delete')->name('staff.delete');
 
-    //notification routes
-    Route::get('/notification', 'NotificaitonController@index')->name('notifications');
-    Route::get('/notification/get_all_notifications', 'NotificaitonController@get_all_notificaitons')->name('notification.all');
-    Route::get('/notification/mark_all_read', 'NotificaitonController@mark_all_read')->name('notifications.all_read');
-    Route::get('/notification/mark_as_read/{id}', 'NotificaitonController@mark_single_notification_read')->name('notifications.mark_as_read');
-    Route::get('/notification/delete_all', 'NotificaitonController@delete_notifications')->name('notifications.delete_all');
+    
+    //users
+    Route::get('/add/user','UserController@index')->name('user.add');
+    Route::get('/all/users','UserController@all_users')->name('users.show');
+    Route::get('/user/save','UserController@save')->name('user.save');
+    Route::get('/user/updaet','UserController@index')->name('user.update');
+    //Route::get('/users/search','UserController@search')->name('');
+    Route::get('/serch','UserController@search')->name('users.search');
 
-    //Permissions routes
-    Route::get('/permissions', 'PermissionController@index')->name('permissions');
-    Route::post('/permissions/save', 'PermissionController@save')->name('permissions.save');
-    Route::get('/permissions/delete/{permission_id}', 'PermissionController@delete')->name('permissions.delete');
-    Route::get('/importCSV', 'HomeController@importCSV')->name('importCSV');
+    //acls
+    Route::get('/all/acl/users','AclController@index')->name('acl.users.show');
+    Route::get('/users/add/acl','AclController@save_user')->name('acl.users.save');
+    Route::get('/users/update-acl','AclController@update_user')->name('acl.users.update');
+    Route::get('/users/search','AclController@search')->name('acl.users.search');
 
-    //Products routes
-    Route::get('/products', 'ProductController@index')->name('products');
-    Route::get('/products/add', 'ProductController@add')->name('products.add');
-    Route::get('/products/edit/{product_id}', 'ProductController@edit')->name('products.edit');
-    Route::post('/products/save', 'ProductController@save')->name('products.save');
-    Route::post('/products/view-shades', 'ProductController@view_shades')->name('products.view_shades');
-    Route::get('/products/delete/{product_id}', 'ProductController@delete')->name('products.delete');
-    Route::get('/product_range', 'ProductController@all_product_range')->name('products.range');
-    Route::post('/product_range_save', 'ProductController@product_range_save')->name('product.range.save');
-    Route::post('/products/get-product-type', 'ProductController@get_product_type')->name('products.get_product_type');
+    //DBS
+    route::get('/all/dbs','dbscontroller@index')->name('dbs.show');
+    route::get('/add-dbs','dbscontroller@save_dbs')->name('dbs.save');
+    route::get('/dbs/search','dbscontroller@search')->name('dbs.search');
 
+    //Ippool
+    route::get('/all/ippool','ippoolcontroller@index')->name('ippool.show');
+    route::get('/add-ippool','ippoolcontroller@save_ippool')->name('ippool.save');
+    route::get('/ippool/search','ippoolcontroller@search')->name('ippool.search');
 
     
 });

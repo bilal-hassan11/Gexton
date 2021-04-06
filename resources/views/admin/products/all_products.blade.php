@@ -45,7 +45,7 @@
                             <button type="button" onclick="view_shades('{{$product->hashid}}', '{{$product->name ?? ''}}')" class="btn btn-success btn-xs waves-effect waves-light">View Shades</button>
 
                             @can('edit-product')
-                            <a href="{{route('products.edit', $product->hashid)}}" class="btn btn-warning btn-xs waves-effect waves-light"><i class="fa fa-edit"></i></a>
+                            <a href="{{route('products.edit',[$product->hashid,hashids_encode($product->range_id)])}}" class="btn btn-warning btn-xs waves-effect waves-light"><i class="fa fa-edit"></i></a>
                             @endcan
                         </td>
                     </tr>
